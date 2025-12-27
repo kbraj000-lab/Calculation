@@ -1,0 +1,135 @@
+body {
+  background-color: DEDEDE;
+  margin: 0; 
+  font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+	}
+	
+        header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 5px solid #eee;
+            height: 80px;
+        }
+        header h1 {
+            font-size: 50px;
+            font-family: Arial;
+            padding-left: 40px;
+            color: #a33c2f;
+            font-weight: bold;
+        }
+        .title {
+            font-size: 50px;
+            font-family: Arial;
+            font-weight: bold;
+            color: #5a1f1f;
+            margin-top: 30px;
+            padding-left: 40px;
+        }
+        .subtitle {
+            font-size: 24px;
+            font-family: Arial;
+            color: #555;
+            margin-bottom: 50px;
+            padding-left: 40px;
+            margin-top: 15px;
+        }
+        
+          .container {
+          	max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 0 24px; 
+        }
+         .form { 
+         	width: 100%; 
+        }
+         .two-col { 
+         	display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 24px;
+        }
+         .col { 
+         	display: flex; 
+            flex-direction: column; 
+            gap: 18px; 
+        }
+        
+         @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+
+         .input-group { 
+         	display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+        }
+    	.input-group label { 
+        	font-weight: 600; 
+            color: #4a4a4a; 
+        }
+
+   		.input-wrapper { 
+        	position: relative; 
+            display: flex; 
+            align-items: stretch; 
+        }
+      	.input-wrapper input, .input-wrapper select {
+      		width: 100%; 
+            padding: 0.6rem; 
+            font-size: 1rem; 
+            border: 1.5px solid #eee;
+            border-radius: 4px 0 0 4px; 
+            background: #fff; 
+            color: #333; 
+            outline: none;
+  		}
+    	.input-wrapper input:focus, .input-wrapper select:focus { 
+        	border-color: #d9534f; 
+            box-shadow: 0 0 0 3px rgba(217,83,79,0.15); 
+        }
+        
+        .unit {
+			background: #a33c2f; 
+  			color: #fff;
+  			padding: 0.65rem 1rem;
+  			border-radius: 0 4px 4px 0;
+		}
+        
+        .actions { 
+        	margin-top: 16px; 
+            display: flex; 
+            gap: 12px; 
+        }
+    	.btn { 
+        	padding: 5px 16px; 
+            border-radius: 8px; 
+            background: #a33c2f; 
+            color: #fff; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: 600; 
+        }
+    	.btn:hover { 
+        	background: #8f3429; 
+        }
+   	 	.btn-secondary { 
+        	background: #777; 
+        }
+    	.btn-secondary:hover { 
+        	background: #666; 
+        }
+
+    	.results { 
+        	margin-top: 1px; 
+            padding: 1px 15px; 
+            background: #f7f7f7; 
+            border: 1px solid #e6e6e6; 
+            border-radius: 8px; 
+            color: #333; 
+        }
+                   
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0;}
+        input[type=number] { -moz-appearance: textfield; }
+
+		
+
+		

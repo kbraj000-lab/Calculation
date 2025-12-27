@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<header>
+       <h1>CALCULATION</h1>
+    </header>
+	
+    <div class="title">Rod</div>
+	<div class="subtitle">Calculation of Weight & surface Area of Single side.</div>
+    
+    <main class="container">
+      <form id="calc-form" class="form two-col" onsubmit="return false;">
+        <div class="input-group">
+          <label for="Diameter">Diameter</label>
+          <div class="input-wrapper">
+            <input type="number" id="Diameter" placeholder="" />
+            <span class="unit">mm</span>
+          </div>
+        </div>
+   	
+        
+        <div class="input-group">
+          <label for="Length">Length</label>
+          <div class="input-wrapper">
+            <input type="number" id="Length" placeholder="" />
+            <span class="unit">mm</span>
+          </div>
+        </div>
+        
+       <div class="input-group">
+            <label for="material">Material</label>
+            <div class="input-wrapper">
+              <select id="material">
+                <option value="" disabled selected>Select material</option>
+            <option>Stainless Steel 304</option>
+            <option>Stainless Steel 316</option>
+            <option>Hastelloy C‑22</option>
+            <option>Hastelloy C‑276</option>
+            <option>Mild Steel</option>
+            <option>Carbon Steel</option>
+          </select>
+        </div>
+      </fieldset>
+     </div>
+     
+     <div class="input-group">
+            <label for="density">Density</label>
+            <div class="input-wrapper ">
+              <input id="density" name="density" type="text" placeholder="Auto" readonly />
+              <span class="unit">kg/m³</span>
+            </div>
+          </div>
+          
+     
+      <div class="actions">
+        <button id="calc-btn" class="btn">Calculate </button>
+        <button id="reset-btn" class="btn btn-secondary">Reset</button>
+      </div>
+		<ul> </ul>
+      <div id="results" class="results">
+        <p><strong>Weight:</strong> <span id="wtOut">-</span></p>
+        <p><strong>Surface Area:</strong> <span id="saOut">-</span></p>
+      </div>
+      
+      
+     </main>
+     
+     
+<script>
+  const DENSITY_KG_M3 = {
+    "Stainless Steel 304": 7930,
+    "Stainless Steel 316": 7980,
+    "Hastelloy C‑22": 8690,
+    "Hastelloy C‑276": 8900,
+    "Mild Steel": 7850,
+    "Carbon Steel": 7850
+  };
+
+  function updateDensity() {
+    const material = document.getElementById("material").value;
+    const densityEl = document.getElementById("density");
+    densityEl.value = material ? DENSITY_KG_M3[material] || "" : "";
+  }
+
+  function calculate() {
+    const D_mm = parseFloat(document.getElementById("Diameter").value);
+    const L_mm = parseFloat(document.getElementById("Length").value);
+    const density = parseFloat(document.getElementById("density").value);
+
+    if ([D_mm, L_mm, density].some(isNaN)) {
+      alert("Please fill all values");
+      return;
+    }
+
+    // Convert mm → meters
+    const D = D_mm / 1000;
+    const L = L_mm / 1000;
+
+    // Volume (m³)
+    const volume = (3.142 * (D/2)**2 * L);
+
+    // Weight (kg)
+    const weight = volume * density;
+
+    // Surface Area (m²)
+    const surfaceArea =  2 * 3.142 * (D/2) * ((D/2)+L);
+
+    document.getElementById("wtOut").innerText = weight.toFixed(2) + " kg";
+    document.getElementById("saOut").innerText = surfaceArea.toFixed(4) + " m²";
+  }
+
+  function resetForm() {
+    document.getElementById("calc-form").reset();
+    document.getElementById("wtOut").innerText = "-";
+    document.getElementById("saOut").innerText = "-";
+    document.getElementById("density").value = "";
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("material").addEventListener("change", updateDensity);
+    document.getElementById("calc-btn").addEventListener("click", calculate);
+    document.getElementById("reset-btn").addEventListener("click", resetForm);
+  });
+</script>
+
+</body>
+
+</html>

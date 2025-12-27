@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<header>
+       <h1>CALCULATION</h1>
+    </header>
+	
+    <div class="title">Ring</div>
+	<div class="subtitle">Calculation of Weight.</div>
+    
+    <main class="container">
+      <form id="calc-form" class="form two-col" onsubmit="return false;">
+        <div class="input-group">
+          <label for="outerDiameter">Outer Diameter</label>
+          <div class="input-wrapper">
+            <input type="number" id="outerDiameter" placeholder="" />
+            <span class="unit">mm</span>
+          </div>
+        </div>
+   		
+        <div class="input-group">
+          <label for="innerDiameter">Inner Diameter</label>
+          <div class="input-wrapper">
+            <input type="number" id="innerDiameter" placeholder="" />
+            <span class="unit">mm</span>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label for="Thickness">Thickness</label>
+          <div class="input-wrapper">
+            <input type="number" id="Thickness" placeholder="" />
+            <span class="unit">mm</span>
+          </div>
+        </div>
+        
+       <div class="input-group">
+            <label for="material">Material</label>
+            <div class="input-wrapper">
+              <select id="material">
+                <option value="" disabled selected>Select material</option>
+            <option>Stainless Steel 304</option>
+            <option>Stainless Steel 316</option>
+            <option>Hastelloy C‑22</option>
+            <option>Hastelloy C‑276</option>
+            <option>Mild Steel</option>
+            <option>Carbon Steel</option>
+          </select>
+        </div>
+      </fieldset>
+     </div>
+     
+     <div class="input-group">
+            <label for="density">Density</label>
+            <div class="input-wrapper ">
+              <input id="density" name="density" type="text" placeholder="Auto" readonly />
+              <span class="unit">kg/m³</span>
+            </div>
+          </div>
+          
+      
+     <ul> </ul>
+      <div class="actions">
+        <button id="calc-btn" class="btn">Calculate </button>
+        <button id="reset-btn" class="btn btn-secondary">Reset</button>
+      </div>
+		<ul> </ul>
+      <div id="results" class="results">
+        <p><strong>Weight:</strong> <span id="wtOut">-</span></p>
+      </div>
+      
+      
+     </main>
+     
+     
+<script>
+  const DENSITY_KG_M3 = {
+    "Stainless Steel 304": 7930,
+    "Stainless Steel 316": 7980,
+    "Hastelloy C‑22": 8690,
+    "Hastelloy C‑276": 8900,
+    "Mild Steel": 7850,
+    "Carbon Steel": 7850
+  };
+
+  function updateDensity() {
+    const material = document.getElementById("material").value;
+    const densityEl = document.getElementById("density");
+    densityEl.value = material ? DENSITY_KG_M3[material] || "" : "";
+  }
+
+  function calculate() {
+  const OD_mm = parseFloat(document.getElementById("outerDiameter").value);
+  const ID_mm = parseFloat(document.getElementById("innerDiameter").value);
+  const T_mm  = parseFloat(document.getElementById("Thickness").value);
+  const density = parseFloat(document.getElementById("density").value);
+
+  if ([OD_mm, ID_mm, T_mm, density].some(isNaN)) {
+    alert("Please fill all values");
+    return;
+  }
+
+  if (ID_mm >= OD_mm) {
+    alert("Inner Diameter must be smaller than Outer Diameter");
+    return;
+  }
+
+  // Convert mm → meters
+  const OD = OD_mm / 1000;
+  const ID = ID_mm / 1000;
+  const T  = T_mm / 1000;
+
+  // Ring volume (m³)
+  const volume = Math.PI * T * (OD ** 2 - ID ** 2) / 4;
+
+  // Ring weight (kg)
+  const weight = volume * density;
+
+  document.getElementById("wtOut").innerText =
+    weight.toFixed(3) + " kg";
+}
+  function resetForm() {
+    document.getElementById("calc-form").reset();
+    document.getElementById("wtOut").innerText = "-";
+    document.getElementById("density").value = "";
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("material").addEventListener("change", updateDensity);
+    document.getElementById("calc-btn").addEventListener("click", calculate);
+    document.getElementById("reset-btn").addEventListener("click", resetForm);
+  });
+</script>
+
+</body></html>
